@@ -1,5 +1,7 @@
 package com.example.android.spitit;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,8 +20,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -127,6 +131,9 @@ public class EmergencyAdminActivity extends AppCompatActivity {
                             Toast.makeText(EmergencyAdminActivity.this,"Emergency already declared",Toast.LENGTH_LONG).show();
                         }
                     });
+
+                    CustomNotification();
+
                 }
                 catch(NullPointerException npe)
                 {
@@ -134,6 +141,52 @@ public class EmergencyAdminActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void CustomNotification() {
+        // Using RemoteViews to bind custom layouts into Notification
+        RemoteViews remoteViews = new RemoteViews(getPackageName(),
+                R.layout.customnotification);
+
+        // Set Notification Title
+        String strtitle = getString(R.string.customnotificationtitle);
+        // Set Notification Text
+        String strtext = getString(R.string.customnotificationtext);
+
+        // Open NotificationView Class on Notification Click
+        Intent intent = new Intent(this, NotificationView.class);
+        // Send data to NotificationView Class
+        intent.putExtra("title", strtitle);
+        intent.putExtra("text", strtext);
+        // Open NotificationView.java Activity
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                // Set Icon
+                .setSmallIcon(R.drawable.aegis)
+                // Set Ticker Message
+                .setTicker(getString(R.string.customnotificationticker))
+                // Dismiss Notification
+                .setAutoCancel(true)
+                // Set PendingIntent into Notification
+                .setContentIntent(pIntent)
+                // Set RemoteViews into Notification
+                .setContent(remoteViews);
+
+        // Locate and set the Image into customnotificationtext.xml ImageViews
+        remoteViews.setImageViewResource(R.id.imagenotileft,R.drawable.aegis);
+        remoteViews.setImageViewResource(R.id.imagenotiright,R.drawable.aegis);
+
+        // Locate and set the Text into customnotificationtext.xml TextViews
+        remoteViews.setTextViewText(R.id.title,getString(R.string.customnotificationtitle));
+        remoteViews.setTextViewText(R.id.text,getString(R.string.customnotificationtext));
+
+        // Create Notification Manager
+        NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // Build Notification with Notification Manager
+        notificationmanager.notify(0, builder.build());
+
     }
 
     private void initialize()

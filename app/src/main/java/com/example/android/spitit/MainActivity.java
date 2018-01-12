@@ -226,10 +226,6 @@ public class MainActivity extends AppCompatActivity
         {
             // Handle the camera action
         }
-        else if (id == R.id.nav_static)
-        {
-            toolbar.setTitle("Static information");
-        }
         else if (id == R.id.nav_emergency)
         {
             mDatabase=FirebaseDatabase.getInstance().getReference().child("Emergency");
@@ -277,10 +273,14 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_instructions)
         {
             toolbar.setTitle("Instructions");
+            fragmentManager=getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.app_bar_main,new InstructionFragment()).commit();
         }
         else if (id == R.id.nav_sos)
         {
             toolbar.setTitle("SOS no.");
+            fragmentManager=getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.app_bar_main,new Sos()).commit();
         }
         else if (id == R.id.nav_portal)
         {
@@ -288,6 +288,30 @@ public class MainActivity extends AppCompatActivity
             //fragmentManager=getSupportFragmentManager();
             //fragmentManager.beginTransaction().replace(R.id.app_bar_main,new EmergencyPortalFragment()).commit();
             startActivity(new Intent(this,EmergencyPortalFragment.class));
+        }
+        else if (id == R.id.nav_fire)
+        {
+            toolbar.setTitle("Fire Safety");
+            fragmentManager=getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.app_bar_main,new FireSafetyFragment()).commit();
+        }
+        else if (id == R.id.nav_earthquake)
+        {
+            toolbar.setTitle("Earthquake");
+            fragmentManager=getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.app_bar_main,new EarthquakeFragment()).commit();
+        }
+        else if (id == R.id.nav_fireExtinguisher)
+        {
+            toolbar.setTitle("Fire Extinguisher");
+            fragmentManager=getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.app_bar_main,new FireExtinguisherFragment()).commit();
+        }
+        else if (id == R.id.nav_cpr)
+        {
+            toolbar.setTitle("CPR");
+            fragmentManager=getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.app_bar_main,new Cpr()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -14,6 +14,10 @@
         android:name="android.hardware.location.gps"
         android:required="true" />
 
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -53,6 +57,36 @@
         <activity
             android:name=".EmergencyPortalFragment"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".FireMeasures"
+            android:label="Fire Safety Measures" />
+        <activity
+            android:name=".PanFire"
+            android:label="Pan Fire / Grease Fire Measures" />
+        <activity
+            android:name=".LpgLeakage"
+            android:label="LPG Gas Leakage Measures" />
+        <activity
+            android:name=".beforeEarthquakeActivity"
+            android:label="What to do Before an Earthquake?" />
+        <activity
+            android:name=".afterEarthquakeActivity"
+            android:label="What to do After an Earthquake?" />
+        <activity
+            android:name=".duringEarthquakeActivity"
+            android:label="What to do During an Earthquake?" />
+        <activity
+            android:name=".IndoorEarthquakeActivity"
+            android:label="Indoor" />
+        <activity
+            android:name=".OutdoorEarthquakeActivity"
+            android:label="Outdoor" />
+        <activity
+            android:name=".VehicleEarthquakeActivity"
+            android:label="Moving Vehicle" />
+        <activity
+            android:name=".DebrisEarthquakeActivity"
+            android:label="Trapped Under Debris" />
     </application>
 
 </manifest>
